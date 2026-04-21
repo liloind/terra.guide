@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>terra.guide — Make sense of sustainability.</title>
+<meta name="description" content="Clear, honest tools for understanding climate and sustainability — without the overwhelm, without the jargon.">
+<meta property="og:title" content="terra.guide — Make sense of sustainability.">
+<meta property="og:description" content="Clear, honest tools for understanding climate and sustainability — without the overwhelm, without the jargon.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal:        #1D9E75;
+    --teal-deep:   #085041;
+    --teal-light:  #E1F5EE;
+    --teal-mid:    #5DCAA5;
+    --ink:         #1A1A18;
+    --ink-soft:    #3D3D39;
+    --ink-muted:   #7A7A74;
+    --ink-faint:   #B8B8B2;
+    --paper:       #F7F6F2;
+    --paper-warm:  #EEF0E8;
+    --white:       #FFFFFF;
+    --border:      rgba(26,26,24,0.1);
+    --ff:          'DM Sans', system-ui, sans-serif;
+    --ffd:         'Fraunces', Georgia, serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--ff);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--paper);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+
+  .nav-logo {
+    font-family: var(--ff);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.4px;
+    text-decoration: none;
+  }
+  .nav-logo .dot { color: var(--teal); }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+  }
+  .nav-links a {
+    font-size: 13px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--teal) !important;
+  }
+  .nav-cta:hover { color: var(--teal-deep) !important; }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 100%);
+    padding: 80px 48px 64px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .hero-title {
+    font-family: var(--ffd);
+    font-size: clamp(36px, 5vw, 52px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 18px;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--ink-muted);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  /* ─── CARD GRID ─── */
+  .grid-section {
+    padding: 40px 48px 64px;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .card {
+    background: var(--white);
+    padding: 28px 24px;
+    transition: background 0.15s;
+  }
+  .card:hover { background: #FAFAF8; }
+
+  .card-cat {
+    font-size: 10px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 9px;
+    line-height: 1.45;
+  }
+
+  .card-desc {
+    font-size: 12px;
+    color: var(--ink-muted);
+    line-height: 1.7;
+    margin-bottom: 18px;
+  }
+
+  .card-meta {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--paper);
+    color: var(--ink-soft);
+  }
+  .tag-free { background: var(--teal-light); color: var(--teal-deep); }
+  .tag-paid { background: #FEF0EE; color: #993C1D; }
+
+  /* placeholder card */
+  .card-ph {
+    background: var(--paper) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 160px;
+    cursor: default;
+  }
+  .card-ph p { font-size: 11px; color: var(--ink-faint); text-align: center; line-height: 1.8; }
+  .card-ph a { font-size: 11px; color: var(--teal); text-decoration: none; }
+  .card-ph a:hover { text-decoration: underline; }
+
+  /* ─── ABOUT STRIP ─── */
+  .about-strip {
+    border-top: 1px solid var(--border);
+    padding: 56px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .about-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+
+  .about-title {
+    font-family: var(--ffd);
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .about-body {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.85;
+  }
+
+  .about-principles {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 6px;
+  }
+
+  .principle {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .principle-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .principle-text {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-logo {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.3px;
+  }
+  .footer-logo .dot { color: var(--teal); }
+
+  .footer-meta {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .footer-meta a {
+    font-size: 12px;
+    color: var(--ink-faint);
+    text-decoration: none;
+  }
+  .footer-meta a:hover { color: var(--ink-muted); }
+
+  .footer-note {
+    font-size: 11px;
+    color: var(--ink-faint);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { gap: 16px; }
+
+    .hero { padding: 56px 20px 48px; }
+
+    .grid-section { padding: 28px 20px 48px; }
+    .card-grid { grid-template-columns: 1fr; }
+
+    .about-strip {
+      padding: 40px 20px;
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    footer {
+      padding: 20px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .footer-meta { flex-direction: column; gap: 8px; align-items: flex-start; }
+  }
+
+  @media (max-width: 560px) {
+    .card-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">terra<span class="dot">.</span>guide</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#workshop" class="nav-cta">Workshop kit →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">Free tools for curious people</p>
+  <h1 class="hero-title">Make sense of sustainability.</h1>
+  <p class="hero-sub">Clear, honest tools for understanding climate and sustainability — without the overwhelm, without the jargon.</p>
+</section>
+
+<section class="grid-section">
+  <div class="card-grid">
+
+    <article class="card">
+      <p class="card-cat">Carbon &amp; emissions</p>
+      <h2 class="card-title">What is a carbon footprint — and whose job is it to fix it?</h2>
+      <p class="card-desc">Scope 1, 2, and 3 explained without the acronym soup. Includes a worked example for an Indian SME.</p>
+      <div class="card-meta">
+        <span class="tag tag-free">Free</span>
+        <span class="tag">Explainer</span>
+        <span class="tag">15 min read</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <p class="card-cat">Waste &amp; packaging</p>
+      <h2 class="card-title">Waste walk — a 45-minute group activity for any office or team</h2>
+      <p class="card-desc">Walk your workspace, document what you find, decide on one shared action. Works offline.</p>
+      <div class="card-meta">
+        <span class="tag tag-free">Free</span>
+        <span class="tag">Activity</span>
+        <span class="tag">Group · 45 min</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <p class="card-cat">Food &amp; land</p>
+      <h2 class="card-title">What is EUDR — and what does it mean for Indian exporters?</h2>
+      <p class="card-desc">Coffee, cocoa, rubber, timber. What the EU Deforestation Regulation requires, with a worked example.</p>
+      <div class="card-meta">
+        <span class="tag tag-free">Free</span>
+        <span class="tag">Explainer</span>
+        <span class="tag">20 min read</span>
+      </div>
+    </article>
+
+    <article class="card" id="workshop">
+      <p class="card-cat">Supply chains &amp; sourcing</p>
+      <h2 class="card-title">Supply chain audit starter — know what your buyer is about to ask you</h2>
+      <p class="card-desc">10 questions EU buyers are now asking Indian suppliers. Based on CSDDD and GRI 308/414.</p>
+      <div class="card-meta">
+        <span class="tag tag-paid">₹999</span>
+        <span class="tag">Workshop kit</span>
+        <span class="tag">PDF · 2 hr</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <p class="card-cat">Reporting &amp; disclosure</p>
+      <h2 class="card-title">GRI vs BRSR vs CSRD — which framework do you actually need?</h2>
+      <p class="card-desc">Decision support for Indian SME managers. Plain language, no jargon. Includes a one-page decision tree.</p>
+      <div class="card-meta">
+        <span class="tag tag-free">Free</span>
+        <span class="tag">Explainer</span>
+        <span class="tag">10 min read</span>
+      </div>
+    </article>
+
+    <article class="card card-ph">
+      <p>More arriving soon.<br>No newsletter required.</p>
+      <a href="mailto:hello@terra.guide">hello@terra.guide</a>
+    </article>
+
+  </div>
+</section>
+
+<section class="about-strip" id="about">
+  <div>
+    <p class="about-label">About</p>
+    <h2 class="about-title">A quiet place to get your bearings.</h2>
+    <p class="about-body">terra.guide is built by Lilit — an instructional designer and product manager based in Bengaluru. The platform exists because sustainability is genuinely complicated, and most tools make it worse: more overwhelming, more jargon-heavy, more guilt-inducing than it needs to be.<br><br>Every resource here is anchored to a real regulation or framework. Every example is honest about what we know and what we don't.</p>
+  </div>
+  <div>
+    <p class="about-label">Principles</p>
+    <div class="about-principles">
+      <div class="principle">
+        <div class="principle-dot"></div>
+        <p class="principle-text">No dark patterns. No manufactured urgency, no guilt loops, no streaks designed to trap.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-dot"></div>
+        <p class="principle-text">Free, honest, and anchored in real frameworks — not opinion, not marketing.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-dot"></div>
+        <p class="principle-text">One honest step at a time. Not the illusion of being done.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-dot"></div>
+        <p class="principle-text">No ads. No data selling. No sponsored content.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">terra<span class="dot">.</span>guide</div>
+  <div class="footer-meta">
+    <a href="mailto:hello@terra.guide">hello@terra.guide</a>
+    <span class="footer-note">Bengaluru, India</span>
+  </div>
+  <div class="footer-note">No dark patterns · No ads · No data selling</div>
+</footer>
+
+</body>
+</html>
